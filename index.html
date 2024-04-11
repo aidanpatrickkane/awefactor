@@ -5,29 +5,29 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Home</title>
    <style>
-       .content {
-           max-width: 800px; /* Adjust the max-width as needed */
-           margin: auto;
-           text-align: center; /* This centers the text of all elements inside .content */
+       .hero-section {
+            margin: auto;
+            text-align: center; /* This centers the text of all elements inside .hero-section */
+            width: 100%; /* Ensures the hero section covers the full width */
+            height: 100vh; /* Adjust the height as necessary, vh units make it viewport-relative */
+            display: flex; /* Uses flexbox to center the content vertically */
+            justify-content: center; /* Centers content horizontally */
+            align-items: center; /* Centers content vertically */
+       }
+       .hero-container {
+            background-image: url('path_to_your_image.jpg'); /* Path to your image */
+            background-size: cover; /* Covers the entire area of the container */
+            background-position: center; /* Centers the background image */
+            width: 100%; /* Inherit width from parent */
+            height: 100%; /* Inherit height from parent */
        }
    </style>
 </head>
 <body>
-<div class="content">
-   <h1>What up fellas</h1>
-   <div class="pick-your-poison">
-       <a href="guthrie-dylan.html">
-           <h2 class="day-link">2/21: Last Thoughts on Woody Guthrie by Bob Dylan</h2>
-       </a>
-   <br>
-   <a href="icecream-people.html">
-       <h2 class="category">2/23: Icecream People by Charles Bukowski</h2>
-   </a>
-<br>
-    <a href="running-and-awe-inflammation.html">
-        <h2 class="category">2/25: Running and awe's effect on inflammation</h2>
-    </a>
-   </div>
-</div>
+    <div class="hero-section">
+        <div class="hero-container">
+            <h1>Welcome to Awefactor</h1>
+        </div>
+    </div>
 </body>
 </html>
