@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 
 const connectionOptions = {
     useNewUrlParser: true, 
-    useUnifiedTopology: true, 
-    useCreateIndex: true 
+    useUnifiedTopology: true
 }; // what does this do
 
 const connect = async () => {

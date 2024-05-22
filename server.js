@@ -1,6 +1,9 @@
 const express = require('express'); 
 // Importing Express, a web application framework for Node.js.
 
+const db = require('./db.js'); 
+// Importing the database connection functions (connect and close) from db.js.
+
 const app = express(); 
 // Creating an instance of Express to use its functionalities.
 
@@ -9,9 +12,6 @@ const port = 3000;
 
 require('dotenv').config(); 
 // Loading environment variables from a .env file into process.env.
-
-const db = require('./db.js'); 
-// Importing the database connection functions (connect and close) from db.js.
 
 async function startServer() { 
     // Defining an asynchronous function named startServer.
