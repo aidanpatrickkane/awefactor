@@ -11,7 +11,7 @@ const connect = async () => {
 };
 
 const close = () => {
-    mongoose.disconnect();
+    return mongoose.disconnect();
 };
 
 module.exports = { connect, close }; //makes it so these functions can be used elsewhere in the code. Such wherabouts will so on and so forth be unbeknownst to I (until the program's done and I can find each use of them if I so please)
