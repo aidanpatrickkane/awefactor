@@ -1,27 +1,20 @@
-const express = require('express'); 
-// Importing Express, a web application framework for Node.js.
+const express = require('express');
+const db = require('./db.js'); // Importing the database connection functions (connect and close) from db.js
+const app = express(); // Creating an instance of Express to use its functionalities
+const port = 3000; // Defining the port number where the server will listen for requests.
 
-const db = require('./db.js'); 
-// Importing the database connection functions (connect and close) from db.js.
+require('dotenv').config(); // Loading environment variables from a .env file into process.env.
 
-const app = express(); 
-// Creating an instance of Express to use its functionalities.
+app.set('view engine', 'ejs'); // Setting the view engine to EJS
+app.set('views', 'views') // specifies directory where page templates will be stored. 'views' directory necessary
 
-const port = 3000; 
-// Defining the port number where the server will listen for requests.
-
-require('dotenv').config(); 
-// Loading environment variables from a .env file into process.env.
+app.use(express.static('public'));
 
 async function startServer() { 
-    // Defining an asynchronous function named startServer.
-    await db.connect(); 
-    // Awaiting the connection to the database (using the connect function from db.js).
-    app.listen(port, () => {
-        console.log(`Server listening at http://localhost:${port} and database connected`);
-        // Starting the server and logging a message to indicate that the server is running and the database is connected.
+    await db.connect(); // Defining an asynchronous function named startServer.
+    app.listen(port, () => { // Awaiting the connection to the database (using the connect function from db.js).
+        console.log(`Server listening at http://localhost:${port} and database connected`); // Starting the server and logging a message to indicate that the server is running and the database is connected.
     });
 }
 
-startServer().catch(console.dir); 
-// Calling the startServer function and handling any errors that occur by logging them to the console.
+startServer().catch(console.dir); // Calling the startServer function and handling any errors that occur by logging them to the console.

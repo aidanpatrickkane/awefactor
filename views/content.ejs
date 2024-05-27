@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content.title %></title>
+</head>
+<body>
+    <h1><%= content.title %></h1>
+    <h2>By <%= content.author %></h2>
+    <% if (content.type === 'video') { %>
+        <iframe width="560" height="315" src="<%= content.content.url %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <% } else if (content.type === 'poem') { %>
+        <pre><%= content.content.text %></pre> <!-- Use <pre> to preserve formatting like line breaks -->
+    <% } else if (content.type === 'article') { %>
+        <div><%= content.content.text %></div> <!-- Use <div> for articles, you can add more styling here -->
+    <% } %>
+</body>
+</html>
