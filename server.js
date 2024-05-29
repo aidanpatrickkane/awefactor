@@ -1,14 +1,18 @@
 const express = require('express');
 const db = require('./db.js'); // Importing the database connection functions (connect and close) from db.js
+const bodyParser = require('body-parser');
+const User = require('./models/User.js');
 const app = express(); // Creating an instance of Express to use its functionalities
 const port = 3000; // Defining the port number where the server will listen for requests.
 const Content = require('./models/Content.js');
 
 require('dotenv').config(); // Loading environment variables from a .env file into process.env.
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
 app.set('view engine', 'ejs'); // Setting the view engine to EJS
 app.set('views', 'views') // specifies directory where page templates will be stored. 'views' directory necessary
-app.use(express.static('public'));
 
 app.get('/random-content', async (req, res) => { // route to display random content
     try {
@@ -27,6 +31,18 @@ app.get('/random-content', async (req, res) => { // route to display random cont
     }
 });
 
+app.post('/signup', async (req, res) => {
+    try {
+        const { firstName, lastName, username, email, password } = req.body;
+        const newUser = new User({ firstName, lastName, username, email, password });
+        await newUser.save();
+        res.send('Signup successful');
+    } catch (error) {
+        console.error('Failed to create user:', error);
+        res.status(500).send('Error signin up user');
+    }
+});
+
 async function startServer() {
     try {
         await db.connect();  // Awaiting the connection to the database
@@ -39,4 +55,4 @@ async function startServer() {
     }
 }
 
-startServer().catch(console.dir); // Calling the startServer function and handling any errors that occur by logging them to the console.
+startServer().catch(console.dir);
