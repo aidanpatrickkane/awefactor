@@ -6,6 +6,7 @@ const app = express(); // Creating an instance of Express to use its functionali
 const port = 3000; // Defining the port number where the server will listen for requests.
 const Content = require('./models/Content.js');
 const bcrypt = require('bcrypt');
+const moment = require('moment-timezone');
 
 require('dotenv').config(); // Loading environment variables from a .env file into process.env.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,8 +35,8 @@ app.get('/random-content', async (req, res) => { // route to display random cont
 
 app.post('/signup', async (req, res) => {
     try {
-        const { firstName, lastName, username, email, password } = req.body;
-        const newUser = new User({ firstName, lastName, username, email, password });
+        const { firstName, lastName, username, email, password, timezone } = req.body;
+        const newUser = new User({ firstName, lastName, username, email, password, timezone });
         await newUser.save();
         res.send('Signup successful');
     } catch (error) {
