@@ -5,6 +5,7 @@ const User = require('./models/User.js');
 const app = express(); // Creating an instance of Express to use its functionalities
 const port = 3000; // Defining the port number where the server will listen for requests.
 const Content = require('./models/Content.js');
+const bcrypt = require('bcrypt');
 
 require('dotenv').config(); // Loading environment variables from a .env file into process.env.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,7 +40,24 @@ app.post('/signup', async (req, res) => {
         res.send('Signup successful');
     } catch (error) {
         console.error('Failed to create user:', error);
-        res.status(500).send('Error signin up user');
+        res.status(500).send('Error signing up user');
+    }
+});
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+
+    if (user) {
+        const match = await bcrypt.compare(password, user.password);
+
+        if (match) {
+            res.redirect('/random-content');
+        } else {
+            res.send('Invalid username or password')
+        }
+    } else {
+        res.send('Invalid username or password')
     }
 });
 
