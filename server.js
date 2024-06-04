@@ -28,6 +28,7 @@ app.use(session({
 app.post('/signup', async (req, res) => {
     try {
         const { firstName, lastName, username, email, password, timezone } = req.body;
+        console.log('Received timezone: ', timezone);
         const newUser = new User({ firstName, lastName, username, email, password, timezone });
         await newUser.save();
         res.send('Signup successful');
@@ -78,13 +79,15 @@ app.get('/fetch-content', async (req, res) => { // route to display content
     const lastAccess = moment(user.lastAccessedContent).tz(user.timezone);
 
     // check if user has accessed content today
-    if (user.lastAccessedContent && now.isSame(lastAccess, 'day')) {
+    if (user.lastAccessedContent && now.isSame(lastAccess, 'day')) { // if they have accessed content before and today is the last time, no soup for you
         res.status(403).send('You can only access content once per day. Check back after midnight!');
         return;
     }
 
     //update last accessed time and fetch content
     user.lastAccessedContent = now.toDate();
+
+    // takes user with id in first argument and changes their last accessed content attribute
     await User.updateOne({ _id: user.id }, { lastAccessedContent: user.lastAccessedContent });
 
     fetchAndRenderContent(res);

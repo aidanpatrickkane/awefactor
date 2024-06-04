@@ -21,9 +21,22 @@
     
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
+
+        <input type="hidden" id="timezone" name="timezone"> 
     
         <button type="submit">Sign Up</button>
     </form>
+
+    <script>
+        // Ensure the script runs after the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Calculate the timezone
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            console.log('Calculated Timezone:', timezone); // Debugging line to check the calculated value
+            // Automatically set the timezone field
+            document.getElementById('timezone').value = timezone;
+        });
+    </script>
 
 </body>
 </html>
