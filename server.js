@@ -3,7 +3,7 @@ const db = require('./db.js'); // Importing the database connection functions (c
 const bodyParser = require('body-parser');
 const User = require('./models/User.js');
 const Content = require('./models/Content.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const session = require('express-session');
 
