@@ -2,11 +2,13 @@ const express = require('express');
 const db = require('./db.js'); // Importing the database connection functions (connect and close) from db.js
 const bodyParser = require('body-parser');
 const User = require('./models/User.js');
-const app = express(); // Creating an instance of Express to use its functionalities
-const port = 3000; // Defining the port number where the server will listen for requests.
 const Content = require('./models/Content.js');
 const bcrypt = require('bcrypt');
 const moment = require('moment-timezone');
+const session = require('express-session');
+
+const app = express(); // Creating an instance of Express to use its functionalities
+const port = 3000; // Defining the port number where the server will listen for requests.
 
 require('dotenv').config(); // Loading environment variables from a .env file into process.env.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,22 +18,12 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs'); // Setting the view engine to EJS
 app.set('views', 'views') // specifies directory where page templates will be stored. 'views' directory necessary
 
-app.get('/random-content', async (req, res) => { // route to display random content
-    try {
-        // get random content document
-        const count = await Content.countDocuments(); // may have error here
-        if (count == 0) {
-            res.status(404).send('No content available');
-            return;
-        }
-        const random = Math.floor(Math.random() * count);
-        const content = await Content.findOne().skip(random);
-        res.render('content', { content });
-    } catch (error) {
-        console.error('Failed to fetch content:', error);
-        res.status(500).send('Server error');
-    }
-});
+app.use(session({
+    secret: process.env.SESSION_SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secture: false }
+}));
 
 app.post('/signup', async (req, res) => {
     try {
@@ -53,14 +45,66 @@ app.post('/login', async (req, res) => {
         const match = await bcrypt.compare(password, user.password);
 
         if (match) {
-            res.redirect('/random-content');
+            req.session.user = { //making session object from which data of user can be accessed for logic
+                id: user._id,
+                username: user.username,
+                timezone: user.timezone, //still not sure how this connects
+                lastAccessedContent: user.lastAccessedContent
+            }; //store user data in session
+            res.redirect('/fetch-content');
         } else {
-            res.send('Invalid username or password')
+            res.send('Invalid username or password');
         }
     } else {
-        res.send('Invalid username or password')
+        res.send('Invalid username or password');
     }
 });
+
+// fetch content route (duh)
+app.get('/fetch-content', async (req, res) => { // route to display content
+    if (!req.session.user) {
+        res.status(401).send('Unauthorized'); // someone smart like me tries to input this in the url directly
+        return;
+    }
+
+    const user = req.session.user;
+
+    // allow the boss (me) to always access
+    if (user.username === 'aidan') {
+        return fetchAndRenderContent(res);
+    }
+
+    const now = moment().tz(user.timezone);
+    const lastAccess = moment(user.lastAccessedContent).tz(user.timezone);
+
+    // check if user has accessed content today
+    if (user.lastAccessedContent && now.isSame(lastAccess, 'day')) {
+        res.status(403).send('You can only access content once per day. Check back after midnight!');
+        return;
+    }
+
+    //update last accessed time and fetch content
+    user.lastAccessedContent = now.toDate();
+    await User.updateOne({ _id: user.id }, { lastAccessedContent: user.lastAccessedContent });
+
+    fetchAndRenderContent(res);
+});
+
+async function fetchAndRenderContent(res) {
+    try {
+        const count = await Content.countDocuments();
+        if (count === 0) {
+            res.status(404).send('No content available');
+            return;
+        }
+        const random = Math.floor(Math.random() * count);
+        const content = await Content.findOne().skip(random);
+        res.render('content', { content });
+    } catch (error) {
+        console.error('Failed to fetch content');
+        res.status(500).send('Server error');
+    }
+}
 
 async function startServer() {
     try {
