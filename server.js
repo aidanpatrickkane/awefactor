@@ -8,7 +8,7 @@ const moment = require('moment-timezone');
 const session = require('express-session');
 
 const app = express(); // Creating an instance of Express to use its functionalities
-const port = 3000; // Defining the port number where the server will listen for requests.
+const port = process.env.PORT || 3000; // Defining the port number where the server will listen for requests.
 
 require('dotenv').config(); // Loading environment variables from a .env file into process.env.
 app.use(bodyParser.urlencoded({ extended: true }));
