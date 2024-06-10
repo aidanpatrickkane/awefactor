@@ -25,7 +25,7 @@ app.use(session({
     cookie: { secture: false }
 }));
 
-app.post('/signup', async (req, res) => {
+app.post('/signup', async (req, res) => { // need to handle attempts of duplicate users
     try {
         const { firstName, lastName, username, email, password, timezone } = req.body;
         console.log('Received timezone: ', timezone);
@@ -49,7 +49,7 @@ app.post('/login', async (req, res) => {
             req.session.user = { //making session object from which data of user can be accessed for logic
                 id: user._id,
                 username: user.username,
-                timezone: user.timezone, //still not sure how this connects
+                timezone: user.timezone,
                 lastAccessedContent: user.lastAccessedContent
             }; //store user data in session
             res.redirect('/fetch-content');
@@ -68,7 +68,7 @@ app.get('/fetch-content', async (req, res) => { // route to display content
         return;
     }
 
-    const user = req.session.user;
+    const user = await User.findById(req.session.user._id).populate('content_seen');
 
     // allow the boss (me) to always access
     if (user.username === 'aidan') {
@@ -86,22 +86,27 @@ app.get('/fetch-content', async (req, res) => { // route to display content
 
     //update last accessed time and fetch content
     user.lastAccessedContent = now.toDate();
+    await user.save();
 
-    // takes user with id in first argument and changes their last accessed content attribute
-    await User.updateOne({ _id: user.id }, { lastAccessedContent: user.lastAccessedContent });
-
-    fetchAndRenderContent(res);
+    fetchAndRenderContent(res, user);
 });
 
 async function fetchAndRenderContent(res) {
     try {
-        const count = await Content.countDocuments();
-        if (count === 0) {
-            res.status(404).send('No content available');
+        const unseenContent = await Content.find({_id: { $nin: user.content_seen }});
+        if (unseenContent.length === 0) {
+            res.status(404).send('No new content available. More coming soon!');
             return;
         }
-        const random = Math.floor(Math.random() * count);
-        const content = await Content.findOne().skip(random);
+
+        //get random content
+        const randomIndex = Math.floor(Math.random() * unseenContent.length);
+        const content = unseenContent[randomIndex];
+
+        // add content id to user's content_seen array
+        user.content_seen.push(content._id);
+        await user.save();
+
         res.render('content', { content });
     } catch (error) {
         console.error('Failed to fetch content');

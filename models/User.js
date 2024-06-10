@@ -8,7 +8,8 @@ const userSchema  = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     timezone: { type: String, required: true },
-    lastAccessedContent: { type: Date, default: null }
+    lastAccessedContent: { type: Date, default: null },
+    content_seen: [{ type: mongoose.Schema.Types.ObjectId , ref: 'Content' }]
 });
 
 userSchema.pre('save', async function(next) {
