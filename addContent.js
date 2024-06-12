@@ -60,4 +60,3 @@ async function addContent() {
     mongoose.disconnect(); // Close the database connection
 }
 
-addContent();

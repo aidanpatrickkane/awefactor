@@ -1,14 +1,14 @@
 const express = require('express');
-const db = require('./db.js'); // Importing the database connection functions (connect and close) from db.js
+const db = require('./db'); // Importing the database connection functions (connect and close) from db.js
 const bodyParser = require('body-parser');
-const User = require('./models/User.js');
+const User = require('./models/User');
 const Content = require('./models/Content.js');
 const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const session = require('express-session');
 
 const app = express(); // Creating an instance of Express to use its functionalities
-const port = process.env.PORT; // Defining the port number where the server will listen for requests.
+const port = process.env.PORT || 3000; // check this if server doesn't work
 
 require('dotenv').config(); // Loading environment variables from a .env file into process.env.
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,7 +28,6 @@ app.use(session({
 app.post('/signup', async (req, res) => { // need to handle attempts of duplicate users
     try {
         const { firstName, lastName, username, email, password, timezone } = req.body;
-        console.log('Received timezone: ', timezone);
         const newUser = new User({ firstName, lastName, username, email, password, timezone });
         await newUser.save();
         req.session.user = {
@@ -39,18 +38,15 @@ app.post('/signup', async (req, res) => { // need to handle attempts of duplicat
         };
         res.redirect('/fetch-content');
     } catch (error) {
-        console.error('Failed to create user:', error);
         res.status(500).send('Error signing up user');
     }
 });
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    console.log('Login attempt for username: ', username);
     const user = await User.findOne({ username });
 
     if (!user) {
-        console.log('User not found:', username);
         return res.status(400).send('Invalid username or password');
     }
 
@@ -63,11 +59,8 @@ app.post('/login', async (req, res) => {
             timezone: user.timezone,
             lastAccessedContent: user.lastAccessedContent
         };
-        console.log('User logged in:', user);
-        console.log('Their username:', req.session.user.username);
         res.redirect('/fetch-content');
     } else {
-        console.log('Invalid password for username:', username);
         res.status(400).send('Invalid username or password');
     }
 });
@@ -78,13 +71,9 @@ app.get('/fetch-content', async (req, res) => { // route to display content
         res.status(401).send('Unauthorized'); // someone smart like me tries to input this in the url directly
         return;
     }
-
-    console.log('Session user: ', req.session.user);
     //populate() makes it so that the array of ObjectId's referring to 
     //content documents are now replaced in content_seen with the actual objects and their properties
     const user = await User.findById(req.session.user.id).populate('content_seen');
-
-    console.log('Fetched user from DB: ', user);
 
     if (!user) {
         res.status(404).send('User not found');
@@ -131,7 +120,6 @@ async function fetchAndRenderContent(res, user) { // point of res is to control 
 
         res.render('content', { content });
     } catch (error) {
-        console.error('Failed to fetch content');
         res.status(500).send('Server error');
     }
 }
