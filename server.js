@@ -6,11 +6,12 @@ const Content = require('./models/Content.js');
 const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
+require('dotenv').config(); // Loading environment variables from a .env file into process.env.
 
 const app = express(); // Creating an instance of Express to use its functionalities
 const port = process.env.PORT || 3000; // check this if server doesn't work
 
-require('dotenv').config(); // Loading environment variables from a .env file into process.env.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -22,7 +23,11 @@ app.use(session({
     secret: process.env.SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: true,
-    cookie: { secture: false }
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        ttl: 14 * 24 * 60 * 60 // what does this do
+    }),
+    cookie: { secure: false }
 }));
 
 app.post('/signup', async (req, res) => { // need to handle attempts of duplicate users
