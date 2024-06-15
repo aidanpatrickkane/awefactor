@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('./db'); // Importing the database connection functions (connect and close) from db.js
+const db = require('./db'); // Importing connect and close functions from db.js
 const bodyParser = require('body-parser');
 const User = require('./models/User');
 const Content = require('./models/Content.js');
@@ -7,16 +7,16 @@ const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-require('dotenv').config(); // Loading environment variables from a .env file into process.env.
+require('dotenv').config(); // Loading environment variables from a .env file into process.env. only needs to be done once
 
 const app = express(); // Creating an instance of Express to use its functionalities
-const port = process.env.PORT || 3000; // check this if server doesn't work
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.set('view engine', 'ejs'); // Setting the view engine to EJS
+app.set('view engine', 'ejs'); // setting view engine to EJS
 app.set('views', 'views') // specifies directory where page templates will be stored. 'views' directory necessary
 
 app.use(session({
@@ -24,13 +24,13 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI,
-        ttl: 14 * 24 * 60 * 60 // what does this do
+        mongoUrl: process.env.MONGODB_URI,
+        ttl: 14 * 24 * 60 * 60 // sets time-to-live (ttl) -- 14 days * 24 hours * 60 minutes * 60...take a wild guess
     }),
-    cookie: { secure: false }
+    cookie: { secure: true } // best in production so cookie only sent over https connections
 }));
 
-app.post('/signup', async (req, res) => { // need to handle attempts of duplicate users
+app.post('/signup', async (req, res) => { // duplicate usernames or emails result in error due to User.js configuration
     try {
         const { firstName, lastName, username, email, password, timezone } = req.body;
         const newUser = new User({ firstName, lastName, username, email, password, timezone });
@@ -43,7 +43,7 @@ app.post('/signup', async (req, res) => { // need to handle attempts of duplicat
         };
         res.redirect('/fetch-content');
     } catch (error) {
-        res.status(500).send('Error signing up user');
+        res.status(500).send('Username or password already taken');
     }
 });
 
