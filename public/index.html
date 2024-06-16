@@ -4,36 +4,135 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Home</title>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
    <style>
-       .hero-section {
-            margin: auto;
-            text-align: center; /* This centers the text of all elements inside .hero-section */
-            width: 100%; /* Ensures the hero section covers the full width */
-            height: 100vh; /* Adjust the height as necessary, vh units make it viewport-relative */
-            display: flex; /* Uses flexbox to center the content vertically */
-            justify-content: center; /* Centers content horizontally */
-            align-items: center; /* Centers content vertically */
+       body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
        }
+
+       *, *::before, *::after {
+        box-sizing: inherit;
+       }
+
+       html, body {
+        height: 100%;
+        width: 100%;
+       }
+
+       html {
+        scroll-behavior: smooth;
+       }
+
+       a {
+            text-decoration: none;
+       }
+
+       h1 {
+            font-size: 64px;
+            font-weight: 600;
+            letter-spacing: 0px;
+       }
+
+       p {
+            font-size: 18px;
+            font-weight: 300;
+       }
+
+       .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #38b8f9;
+       }
+
+       .navbar .logo img {
+            height: 50px;
+       }
+
+       .navbar .nav-links a {
+            color: white;
+            font-size: 18px;
+       }
+
+       .navbar .nav-links {
+            display: flex;
+            gap: 44px;
+            padding-right: 26px;
+            align-items: center;
+       }
+
+       #signup-button {
+            color: black;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+       }
+
+       .hero-section {
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(#38B8F9, #2668EC);
+            height: 100vh;
+       }
+
        .hero-container {
-            background-image: url('path_to_your_image.jpg'); /* Path to your image */
-            background-size: cover; /* Covers the entire area of the container */
-            background-position: center; /* Centers the background image */
-            width: 100%; /* Inherit width from parent */
-            height: 100%; /* Inherit height from parent */
+            padding-top: 104px;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+       }
+
+       .hero-container p {
+            text-align: center;
+            color: white;
+            letter-spacing: 0;
+            line-height: 30px;
+       }
+
+       .hero-container h1 {
+            text-align: center;
+            color: white;
+       }
+
+       .hero-container-text-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+       }
+       .hero-container-text-container h1 {
+            margin-bottom: 0px;
        }
    </style>
 </head>
 <body>
-    <nav>
-        <img src="/public/images/logo.png" alt="awefactor logo">
-        <a href="/signup.html">Sign up</a>
-        <a href="/login.html">Log in</a>
-        <a href="/">Submit a factor</a>
-    </nav>
-    <div class="hero-section">
-        <div class="hero-container">
-            <h1>Welcome to Awefactor</h1>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/public/index.html">
+                <img src="/public/images/logo.png" alt="awefactor logo">
+            </a>
         </div>
-    </div>
+        <div class="nav-links">
+            <a href="/">Submit a factor</a>
+            <a href="/login.html">Log in</a>
+            <a href="/signup.html" id="signup-button">Sign up</a>
+        </div>
+    </nav>
+    <main>
+        <div class="hero-section">
+            <div class="hero-container">
+                <div class="hero-container-text-container">
+                    <h1>Welcome to Awefactor</h1>
+                    <p>Where the everyday beauty and wonder of life is on daily display. <br> 
+                       We’re hoping you laugh, and you cry, but first...</p>
+                </div>
+                <a href="/signup.html" id="signup-button">Join Today</a>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
