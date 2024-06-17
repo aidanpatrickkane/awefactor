@@ -1,31 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Login Page</title>
+    <style>
+       body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+       }
+
+       *, *::before, *::after {
+        box-sizing: inherit;
+       }
+
+       html, body {
+        height: 100%;
+        width: 100%;
+       }
+
+       html {
+        scroll-behavior: smooth;
+       }
+
+       a {
+            text-decoration: none;
+       }
+
+       h1 {
+            font-size: 64px;
+            font-weight: 600;
+            letter-spacing: 0px;
+       }
+
+       p {
+            font-size: 18px;
+            font-weight: 300;
+       }
+
+       .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #38b8f9;
+       }
+
+       .navbar .logo img {
+            height: 50px;
+       }
+
+       .navbar .nav-links a {
+            color: white;
+            font-size: 18px;
+       }
+
+       .navbar .nav-links {
+            display: flex;
+            gap: 44px;
+            padding-right: 26px;
+            align-items: center;
+       }
+
+       #signup-button {
+            color: black;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+       }
+
+        .form-container {
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            width: 300px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to left,#38B8F9, #2668EC);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-section {
+            background: linear-gradient(#38B8F9, #2668EC);
+            height: 100vh;
+            padding-top: 20px;
+        }
+
+        .form-container img {
+            width: 50px;
+            height: auto;
+        }
+
+        #first-form-group {
+            margin-top: 25px;
+        }
+
+    </style>
 </head>
 <body>
-    <form id="signupForm" action="/signup" method="post">
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required>
-    
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" required>
-    
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-    
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-    
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <input type="hidden" id="timezone" name="timezone"> 
-    
-        <button type="submit">Sign Up</button>
-    </form>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/public/index.html">
+                <img src="/images/logo.png" alt="awefactor logo">
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/">Submit a factor</a>
+            <a href="/login.html">Log in</a>
+            <a href="/signup.html" id="signup-button">Sign up</a>
+        </div>
+    </nav>
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Login</h2>
+            <img src="/images/Basic-colored-logo.png" alt="awefactor logo">
+            <form action="/login" method="post">
+                <div class="form-group" id="first-form-group"> <!--- adding ids so i can add margin to the top --->
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group" id="second">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-group" id="third">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group" id="fourth">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group" id="fifth">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <input type="hidden" id="timezone" name="timezone"> 
+                <div class="form-group" id="button">
+                    <button class="login-button" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </section>
 
     <script>
         // Ensure the script runs after the DOM is fully loaded
@@ -37,6 +187,5 @@
             document.getElementById('timezone').value = timezone;
         });
     </script>
-
 </body>
 </html>
