@@ -3,27 +3,92 @@
 <head>
     <title>Login Page</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
+       body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+       }
 
-        .container {
-            max-width: 400px;
+       *, *::before, *::after {
+        box-sizing: inherit;
+       }
+
+       html, body {
+        height: 100%;
+        width: 100%;
+       }
+
+       html {
+        scroll-behavior: smooth;
+       }
+
+       a {
+            text-decoration: none;
+       }
+
+       h1 {
+            font-size: 64px;
+            font-weight: 600;
+            letter-spacing: 0px;
+       }
+
+       p {
+            font-size: 18px;
+            font-weight: 300;
+       }
+
+       .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #38b8f9;
+       }
+
+       .navbar .logo img {
+            height: 50px;
+       }
+
+       .navbar .nav-links a {
+            color: white;
+            font-size: 18px;
+       }
+
+       .navbar .nav-links {
+            display: flex;
+            gap: 44px;
+            padding-right: 26px;
+            align-items: center;
+       }
+
+       #signup-button {
+            color: black;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+       }
+
+        .form-container {
+            width: 400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .container h2 {
+        .form-container h2 {
             text-align: center;
             margin-bottom: 20px;
         }
 
         .form-group {
             margin-bottom: 20px;
+            width: 300px;
         }
 
         .form-group label {
@@ -34,38 +99,69 @@
 
         .form-group input {
             width: 100%;
-            padding: 10px;
+            padding: 10px 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        .form-group button {
+        .login-button {
             width: 100%;
             padding: 10px;
-            background-color: #4CAF50;
+            background: linear-gradient(to left,#38B8F9, #2668EC);
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
+
+        .form-section {
+            background: linear-gradient(#38B8F9, #2668EC);
+            height: 100vh;
+            padding-top: 20px;
+        }
+
+        .form-container img {
+            width: 50px;
+            height: auto;
+        }
+
+        #first {
+            margin-top: 50px;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Login</h2>
-        <form action="/login" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password">
-            </div>
-            <div class="form-group">
-                <button type="submit">Login</button>
-            </div>
-        </form>
-    </div>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="/public/index.html">
+                <img src="/images/logo.png" alt="awefactor logo">
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/">Submit a factor</a>
+            <a href="/login.html">Log in</a>
+            <a href="/signup.html" id="signup-button">Sign up</a>
+        </div>
+    </nav>
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Login</h2>
+            <img src="/images/Basic-colored-logo.png" alt="awefactor logo">
+            <form action="/login" method="post">
+                <div class="form-group" id="first"> <!--- adding ids so i can add margin to the top --->
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group" id="second">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password">
+                </div>
+                <div class="form-group" id="third">
+                    <button class="login-button" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </section>
 </body>
 </html>
