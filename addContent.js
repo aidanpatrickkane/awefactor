@@ -12,7 +12,8 @@ async function addContent() {
         author: "Rudyard Kipling",
         type: "poem",
         content: {
-            text: `If you can keep your head when all about you
+            text: `
+            If you can keep your head when all about you
             Are losing theirs and blaming it on you,   
             If you can trust yourself when all men doubt you,
             But make allowance for their doubting too;   
