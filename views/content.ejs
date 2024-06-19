@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/Basic-colored-logo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <title><%= content.title %></title>
+    <style>
+        body {
+            font-family: Inter;
+        }
+    </style>
 </head>
 <body>
+    <div>
+
+    </div>
     <h1><%= content.title %></h1>
     <h2>By <%= content.author %></h2>
     <% if (content.type === 'video') { %>
