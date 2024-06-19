@@ -6,19 +6,24 @@
     <link rel="icon" href="/images/Basic-colored-logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <title><%= content.title %></title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient()
+        }
+    </style>
 </head>
 <body>
     <div>
-
+        <h1><%= content.title %></h1>
+        <h2>By <%= content.author %></h2>
+        <% if (content.type === 'video') { %>
+            <iframe width="560" height="315" src="<%= content.content.url %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <% } else if (content.type === 'poem') { %>
+            <pre><%= content.content.text %></pre> <!-- Use <pre> to preserve formatting like line breaks -->
+        <% } else if (content.type === 'article') { %>
+            <div><%= content.content.text %></div> <!-- Use <div> for articles, you can add more styling here -->
+        <% } %>
     </div>
-    <h1><%= content.title %></h1>
-    <h2>By <%= content.author %></h2>
-    <% if (content.type === 'video') { %>
-        <iframe width="560" height="315" src="<%= content.content.url %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    <% } else if (content.type === 'poem') { %>
-        <pre><%= content.content.text %></pre> <!-- Use <pre> to preserve formatting like line breaks -->
-    <% } else if (content.type === 'article') { %>
-        <div><%= content.content.text %></div> <!-- Use <div> for articles, you can add more styling here -->
-    <% } %>
 </body>
 </html>
