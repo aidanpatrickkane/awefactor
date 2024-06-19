@@ -9,12 +9,39 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient()
+            background: linear-gradient(#38B8F8, #2668EC);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #444;
+            text-align: center;
+            margin-top: 20px;
+        }
+        h2 {
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+        }
+        div.content-container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        iframe {
+            display: block;
+            margin: 20px auto;
+        }
+        pre, div {
+            white-space: pre-wrap;
+            margin: 20px;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
-    <div>
+    <div class="content-container">
         <h1><%= content.title %></h1>
         <h2>By <%= content.author %></h2>
         <% if (content.type === 'video') { %>
