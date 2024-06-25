@@ -107,6 +107,23 @@ app.get('/fetch-content', async (req, res) => { // route to display content
 });
 
 async function fetchAndRenderContent(res, user) { // point of res is to control browser output (send data back to client)
+    
+    if (user.username === 'aidan') {
+        try {
+            // Assuming type is a property in the Content schema
+            const aidansRandomContent = await Content.findOne({ type: 'video' });
+            if (!aidansRandomContent) {
+                res.status(404).send('No content available.');
+                return;
+            }
+            res.render('content', { content: aidansRandomContent });
+            return;
+        } catch (error) {
+            res.status(500).send('Server error');
+            return;
+        }
+    }
+
     try {
         //get unseen content as function of nin user's consent_seen array
         const unseenContent = await Content.find({_id: { $nin: user.content_seen }});
