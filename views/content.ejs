@@ -5,60 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/images/Basic-colored-logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/styles.css">
     <title><%= content.title %></title>
-    <style>
-        body {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
-        background: linear-gradient(#38B8F8, #2668EC);
-       }
-
-       *, *::before, *::after {
-        box-sizing: inherit;
-       }
-
-       html, body {
-        height: 100%;
-        width: 100%;
-       }
-
-       html {
-        scroll-behavior: smooth;
-       }
-
-       h1 {
-            font-size: 4rem;
-            font-weight: 600;
-            letter-spacing: 0px;
-            margin-top: 100px;
-       }
-       h2 {
-        font-size: 2rem;
-        font-weight: 500;
-        letter-spacing: 0px;
-       }
-
-       p {
-            font-size: 1rem;
-            font-weight: 300;
-       }
-       content-container-wrapper {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-       }
-       content-container {
-            text-align: center
-       }
-    </style>
 </head>
 <body>
     <div class="content-container-wrapper">
         <div class="content-container">
-            <h1><%= content.title %></h1>
+            <h1><%= content.author %></h1>
             <h2>By <%= content.author %></h2>
             <% if (content.type === 'video') { %>
                 <iframe width="840" height="472.5" src="<%= content.content.url %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(#38B8F8, #2668EC);
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: 600;
+    letter-spacing: 0px;
+    margin-top: 100px;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0px;
+}
+
+p {
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.content-container-wrapper { /* Added dot for class selector */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.content-container { /* Added dot for class selector */
+    text-align: center;
+}
