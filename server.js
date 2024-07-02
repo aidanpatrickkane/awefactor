@@ -109,7 +109,7 @@ app.get('/fetch-content', async (req, res) => { // route to display content
 async function fetchAndRenderContent(res, user) { // point of res is to control browser output (send data back to client)
 
     try {
-        //get unseen content as function of nin user's consent_seen array
+        //get unseen content as function of nin user's content_seen array
         const unseenContent = await Content.find({_id: { $nin: user.content_seen }});
         if (unseenContent.length === 0) {
             res.status(404).send('No new content available. More coming soon!');
