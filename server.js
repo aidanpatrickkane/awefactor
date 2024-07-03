@@ -44,7 +44,6 @@ const isValidUrl = (url) => {
 app.post('/submit-factor', async (req, res) => {
     try {
         const { fullName, factorLink, whyTheyLove } = req.body;
-        
         // validating url
         if (!isValidUrl(factorLink)) {
             return res.status(400).send('Invalid URL provided.');
@@ -55,6 +54,7 @@ app.post('/submit-factor', async (req, res) => {
         await newSubmission.save();
         res.redirect('https://www.espn.com/');
     } catch (error) {
+        console.error('Error during submission:', error);
         res.status(500).send('Error with submission. Try again soon (seriously)!');
     }
 });
