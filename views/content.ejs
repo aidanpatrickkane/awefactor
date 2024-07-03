@@ -11,7 +11,7 @@
 <body>
     <div class="content-container-wrapper">
         <div class="content-container">
-            <h1><%= content.author %></h1>
+            <h1><%= content.title %></h1>
             <h2>By <%= content.author %></h2>
             <% if (content.type === 'video') { %>
                 <iframe width="840" height="472.5" src="<%= content.content.url %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
