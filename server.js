@@ -14,7 +14,8 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('public'));
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs'); // setting view engine to EJS
 app.set('views', 'views') // specifies directory where page templates will be stored. 'views' directory necessary
@@ -29,6 +30,10 @@ app.use(session({
     }),
     cookie: { secure: true } // best in production so cookie only sent over https connections
 }));
+
+app.get('/test', (req, res) => {
+    res.render('test');
+});
 
 app.post('/signup', async (req, res) => { // duplicate usernames or emails result in error due to User.js configuration
     try {
