@@ -46,7 +46,7 @@ app.post('/signup', async (req, res) => { // duplicate usernames or emails resul
             timezone: newUser.timezone,
             lastAccessedContent: newUser.lastAccessedContent
         };
-        res.redirect('/fetch-content');
+        res.redirect('/my-factor');
     } catch (error) {
         res.status(500).send('Username or password already taken');
     }
@@ -69,14 +69,14 @@ app.post('/login', async (req, res) => {
             timezone: user.timezone,
             lastAccessedContent: user.lastAccessedContent
         };
-        res.redirect('/fetch-content');
+        res.redirect('/my-factor');
     } else {
         res.status(400).send('Invalid username or password');
     }
 });
 
 // fetch content route (duh)
-app.get('/fetch-content', async (req, res) => { // route to display content
+app.get('/my-factor', async (req, res) => { // route to display content
     if (!req.session.user) {
         res.status(401).send('Unauthorized'); // someone smart like me tries to input this in the url directly
         return;
