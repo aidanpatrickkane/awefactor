@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const submissionSchema  = new mongoose.Schema({
     fullName: { type: String, required: true },
-    factorLink: { type: URL, required: true },
+    factorLink: { type: String, required: true },
     whyTheyLove: { type: String, required: true }
 });
 

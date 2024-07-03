@@ -162,15 +162,15 @@
             <form action="/submit-factor" method="post">
                 <div class="form-group" id="first-form-group"> <!--- adding ids so i can add margin to the top --->
                     <label for="fullName">my full name:</label>
-                    <input type="text" id="full-name" name="fullName">
+                    <input type="text" id="full-name" name="fullName" required>
                 </div>
                 <div class="form-group" id="second">
                     <label for="factorLink">link to the factor:</label>
-                    <input type="url" id="factor-link" name="factorLink">
+                    <input type="url" id="factor-link" name="factorLink" required>
                 </div>
                 <div class="form-group" id="why-i-love">
                     <label for="whyTheyLove">why i love it:</label>
-                    <textarea type="text" id="why-they-love" name="whyTheyLove"></textarea>
+                    <textarea type="text" id="why-they-love" name="whyTheyLove" required></textarea>
                 </div>
                 <div class="form-group" id="fourth">
                     <button type="submit" class="submit-button">Log in</button>
