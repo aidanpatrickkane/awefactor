@@ -91,7 +91,7 @@ app.get('/my-factor', async (req, res) => { // route to display content
     }
 
     // allow the boss (me) to always access
-    if (user.username === 'aidan') {
+    if (user.username === 'aidan' || user.username === 'aidan2' || user.username === 'aidan3') {
         return fetchAndRenderContent(res, user);
     }
 
