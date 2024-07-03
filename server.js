@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const validator = require('validator');
 require('dotenv').config(); // Loading environment variables from a .env file into process.env. only needs to be done once
 
 const app = express(); // Creating an instance of Express to use its functionalities
