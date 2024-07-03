@@ -3,6 +3,7 @@ const db = require('./db'); // Importing connect and close functions from db.js
 const bodyParser = require('body-parser');
 const User = require('./models/User');
 const Content = require('./models/Content.js');
+const Submission = require('./models/Submission.js');
 const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const session = require('express-session');
@@ -33,6 +34,29 @@ app.use(session({
 
 app.get('/test', (req, res) => {
     res.render('test');
+});
+
+const isValidUrl = (url) => {
+    //validating url to make sure its safe and doesnt make my computer disappear
+    return validator.isURL(url, { protocols: ['http', 'https'], require_protocol: true });
+};
+
+app.post('/submit-factor', async (req, res) => {
+    try {
+        const { fullName, factorLink, whyTheyLove } = req.body;
+        
+        // validating url
+        if (!isValidUrl(factorLink)) {
+            return res.status(400).send('Invalid URL provided.');
+        }
+        
+        // saving submish to database
+        const newSubmission = new Submission({ fullName, factorLink, whyTheyLove });
+        await newSubmission.save();
+        res.redirect('https://www.espn.com/');
+    } catch (error) {
+        res.status(500).send('Error with submission. Try again soon (seriously)!');
+    }
 });
 
 app.post('/signup', async (req, res) => { // duplicate usernames or emails result in error due to User.js configuration
