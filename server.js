@@ -133,7 +133,7 @@ app.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ username });
         if (!user) {
-            return res.status(400).json({ isValidLogin: false, message: 'Factorname not found' });
+            return res.json({ isValidLogin: false, message: 'Factorname not found' });
         }
 
         const match = await bcrypt.compare(password, user.password);
@@ -145,9 +145,9 @@ app.post('/login', async (req, res) => {
                 timezone: user.timezone,
                 lastAccessedContent: user.lastAccessedContent
             };
-            return res.status(200).json({ isValidLogin: true, message: 'Login successful' });
+            return res.json({ isValidLogin: true, message: 'Login successful' });
         } else {
-            return res.status(400).json({ isValidLogin: false, message: 'Invalid password' });
+            return res.json({ isValidLogin: false, message: 'Invalid password' });
         }
     } catch (error) {
         return res.status(500).json({ isValidLogin: false, message: 'Error getting your login info, try again soon!' });

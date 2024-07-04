@@ -224,28 +224,20 @@
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('error-message');
 
-            try {
-                const response = await fetch('/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password }) // sending variable from function to endpoint
+            });
 
-                const result = await response.json();
+            const result = await response.json();
 
-                if (!response.ok) {
-                    throw new Error(result.message || 'Unknown error');
-                }
-
-                if (!result.isValidLogin) {
-                    errorMessage.innerText = result.message;
-                } else {
-                    window.location.href = '/my-factor';
-                }
-            } catch (error) {
-                errorMessage.innerText = error.message;
+            if(!result.isValidLogin) {
+                errorMessage.innerText = result.message;
+            } else {
+                window.location.href = '/my-factor';
             }
         });
     </script>
