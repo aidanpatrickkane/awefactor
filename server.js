@@ -60,20 +60,56 @@ app.post('/submit-factor', async (req, res) => {
     }
 });
 
-app.post('/signup', async (req, res) => { // duplicate usernames or emails result in error due to User.js configuration
+//check-unique is called by client side signup form to see if username and email are unique
+app.post('/check-unique', async (req, res) => {
+    const { username, email } = req.body;
+
     try {
-        const { firstName, lastName, username, email, password, timezone } = req.body;
+        const userWithSameUsername = await User.findOne({ username });
+        const userWithSameEmail = await User.findOne({ email });
+
+        if (userWithSameUsername) {
+            return res.json({ isUnique: false, message: 'that factorname\'s taken ;(' });
+        }
+
+        if (userWithSameEmail) {
+            return res.json({ isUnique: false, message: 'that email\'s taken ;(' });
+        }
+
+        res.json({ isUnique: true });
+    } catch (error) {
+        res.status(500).json({ isUnique: false, message: 'An error occurred trying to sign you up, please try again' });
+    }
+});
+
+app.post('/signup', async (req, res) => { // duplicate usernames or emails result in error due to User.js configuration
+    const { firstName, lastName, username, email, password, timezone } = req.body;
+
+    try {
+        const userWithSameUsername = await User.findOne({ username });
+        const userWithSameEmail = await User.findOne({ email });
+
+        if (userWithSameUsername) {
+            return res.status(400).json({ message: 'that factorname\'s taken ;(' });
+        }
+
+        if (userWithSameEmail) {
+            return res.status(400).json({ message: 'that email\'s taken ;(' });
+        }
+
         const newUser = new User({ firstName, lastName, username, email, password, timezone });
         await newUser.save();
+
         req.session.user = {
             id: newUser._id,
             username: newUser.username,
             timezone: newUser.timezone,
             lastAccessedContent: newUser.lastAccessedContent
         };
+        
         res.redirect('/my-factor');
     } catch (error) {
-        res.status(500).send('Username or password already taken');
+        res.status(500).send('Username or email already taken');
     }
 });
 
