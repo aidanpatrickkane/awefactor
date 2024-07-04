@@ -175,6 +175,12 @@
             justify-content: center;
         }
 
+        #error-message {
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 20px;
+        }
+
     </style>
 </head>
 <body>
@@ -194,7 +200,7 @@
         <div class="form-container">
             <h2>see today's factor</h2>
             <img src="/images/Basic-colored-logo.png" alt="awefactor logo">
-            <form action="/login" method="post">
+            <form id="login-form" action="/login" method="post">
                 <div class="form-group" id="first-form-group"> <!--- adding ids so i can add margin to the top --->
                     <label for="username">my factorname:</label>
                     <input type="text" id="username" name="username">
@@ -203,11 +209,37 @@
                     <label for="password">my password:</label>
                     <input type="password" id="password" name="password">
                 </div>
+                <div id="error-message" style="color: red;"></div>
                 <div class="form-group" id="third">
                     <button class="login-button" type="submit"><span>Log in</span></button>
                 </div>
             </form>
         </div>
     </section>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password }) // sending variable from function to endpoint
+            });
+
+            const result = await response.json();
+
+            if (!result.isValidLogin) {
+                errorMessage.innerText = result.message;
+            } else {
+                window.location.href = '/my-factor';
+            }
+        });
+    </script>
 </body>
 </html>

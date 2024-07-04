@@ -123,30 +123,34 @@ app.post('/signup', async (req, res) => { // duplicate usernames or emails resul
         
         res.redirect('/my-factor');
     } catch (error) {
-        res.status(500).send('Username or email already taken');
+        res.status(500).send('Factorname or email already taken');
     }
 });
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
 
-    if (!user) {
-        return res.status(400).send('Invalid username or password');
-    }
+    try {
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.json({isValidLogin: false, message: 'Factorname not found'});
+        }
 
-    const match = await bcrypt.compare(password, user.password);
+        const match = await bcrypt.compare(password, user.password);
 
-    if (match) {
-        req.session.user = {
-            id: user._id,
-            username: user.username,
-            timezone: user.timezone,
-            lastAccessedContent: user.lastAccessedContent
-        };
-        res.redirect('/my-factor');
-    } else {
-        res.status(400).send('Invalid username or password');
+        if (match) {
+            req.session.user = {
+                id: user._id,
+                username: user.username,
+                timezone: user.timezone,
+                lastAccessedContent: user.lastAccessedContent
+            };
+            return res.json({ isValidLogin: true, message: 'Login successful' });
+        } else {
+            return res.json({ isValidLogin: false, message: 'Invalid password' });
+        }
+    } catch (error) {
+        return res.json({ isValidLogin: false, message: 'Error getting your login info, try again soon!' });
     }
 });
 
