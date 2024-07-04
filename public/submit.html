@@ -110,14 +110,44 @@
             border-radius: 5px;
         }
 
+        #fourth {
+            display: flex;
+            justify-content: center;
+        }
+
         .submit-button {
-            width: 100%;
+            width: 40%;
             padding: 10px;
             background: linear-gradient(to left,#38B8F9, #2668EC);
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            transition: color 0.4s; /* Transition for text color */
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%; /* Start the gradient from outside the left boundary */
+            width: 100%;
+            height: 100%;
+            background: #2668EC;
+            z-index: 1; /* Place the pseudo-element behind the text */
+            transition: left 0.4s; /* Transition for background movement */
+        }
+
+        .submit-button:hover::before {
+            left: 0; /* Move the gradient to cover the button */
+        }
+
+        .submit-button span {
+            position: relative;
+            z-index: 2;
         }
 
         .form-section {
@@ -180,7 +210,7 @@
                     <textarea type="text" id="why-they-love" name="whyTheyLove" required></textarea>
                 </div>
                 <div class="form-group" id="fourth">
-                    <button type="submit" class="submit-button">Log in</button>
+                    <button type="submit" class="submit-button"><span>Submit</span></button>
                 </div>
             </form>
         </div>
