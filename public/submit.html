@@ -181,6 +181,12 @@
             border: 1px solid #38B8F9;
             outline: none;
         }
+
+        #error-message {
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -200,7 +206,7 @@
         <div class="form-container">
             <h2>submit a factor</h2>
             <img src="/images/Basic-colored-logo.png" alt="awefactor logo">
-            <form action="/submit-factor" method="post">
+            <form id="submitFactorForm" action="/submit-factor" method="post">
                 <div class="form-group" id="first-form-group"> <!--- adding ids so i can add margin to the top --->
                     <label for="fullName">my full name:</label> <!--- for attribute important for accessibility --->
                     <input type="text" id="full-name" name="fullName" required>
@@ -213,11 +219,37 @@
                     <label for="whyTheyLove">why i love it:</label>
                     <textarea type="text" id="why-they-love" name="whyTheyLove" required></textarea>
                 </div>
+                <div id="error-message" style="color: red;"></div>
                 <div class="form-group" id="fourth">
                     <button type="submit" class="submit-button"><span>Submit</span></button>
                 </div>
             </form>
         </div>
     </section>
+
+    <script>
+        document.getElementById('submitFactorForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const url = document.getElementById('factor-link').value;
+            const errorMessage = document.getElementById('error-message');
+
+            const response = await fetch('/check-url', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url }) // sending variable from function to endpoint
+            });
+
+            const result = await response.json();
+
+            if (!result.isBueno) {
+                errorMessage.innerText = result.message;
+            } else {
+                this.submit();
+            }
+        });
+    </script>
 </body>
 </html>

@@ -60,6 +60,19 @@ app.post('/submit-factor', async (req, res) => {
     }
 });
 
+app.post('/check-url', async (req, res) => {
+    const { url } = req.body;
+    try {
+        if (!isValidUrl(url)) {
+            return res.json({ isBueno: false, message: 'Invalid URL provided.' });
+        }
+
+        res.json({ isBueno: true });
+    } catch (error) {
+        res.status(500).json({ isBueno: false, message: 'An error occurred validating your url' });
+    }
+});
+
 //check-unique is called by client side signup form to see if username and email are unique
 app.post('/check-unique', async (req, res) => {
     const { username, email } = req.body;
