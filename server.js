@@ -62,6 +62,7 @@ app.post('/submit-factor', async (req, res) => {
 
 app.post('/check-url', async (req, res) => {
     const { url } = req.body;
+    
     try {
         if (!isValidUrl(url)) {
             return res.json({ isBueno: false, message: 'Invalid URL provided.' });
