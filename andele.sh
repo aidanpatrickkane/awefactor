@@ -13,4 +13,6 @@ rsync -avz --exclude 'node_modules' --exclude '.git' --exclude '.env' \
 # SSH into the EC2 instance and run the apply-changes.sh script
 ssh -i $KEY_PATH $USER@$HOST "bash -c 'cd $REMOTE_DIR && ./apply-changes.sh'"
 
+apply-changes.sh
+
 echo "Changes applied successfully!"
