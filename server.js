@@ -53,7 +53,7 @@ app.post('/submit-factor', async (req, res) => {
         // saving submish to database
         const newSubmission = new Submission({ fullName, factorLink, whyTheyLove });
         await newSubmission.save();
-        res.redirect('https://www.espn.com/');
+        res.redirect('https://awefactor.us/public/thankyouforsubmission.html');
     } catch (error) {
         console.error('Error during submission:', error);
         res.status(500).send('Error with submission. Try again soon (seriously)!');
