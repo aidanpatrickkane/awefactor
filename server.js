@@ -179,7 +179,7 @@ app.get('/my-factor', async (req, res) => { // route to display content
 
     // check if user has accessed content today
     if (user.lastAccessedContent && now.isSame(lastAccess, 'day')) { // if they have accessed content before and today is the last time, no soup for you
-        res.status(403).send('You can only access content once per day. Check back after midnight!');
+        res.redirect('/oneaday.html');
         return;
     }
 
@@ -196,7 +196,7 @@ async function fetchAndRenderContent(res, user) { // point of res is to control 
         //get unseen content as function of nin user's content_seen array
         const unseenContent = await Content.find({_id: { $nin: user.content_seen }});
         if (unseenContent.length === 0) {
-            res.status(404).send('No new content available. More coming soon!');
+            res.redirect('/nonewcontent.html');
             return;
         }
 

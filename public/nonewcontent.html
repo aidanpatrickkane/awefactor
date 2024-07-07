@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Oh Snap!</title>
+   <link rel="icon" href="/images/Basic-colored-logo.png" type="image/png">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+   <style>
+       body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+       }
+
+       *, *::before, *::after {
+        box-sizing: inherit;
+       }
+
+       html, body {
+        height: 100%;
+        width: 100%;
+       }
+
+       html {
+        scroll-behavior: smooth;
+       }
+
+       a {
+            text-decoration: none;
+       }
+
+       h1 {
+            font-size: 64px;
+            font-weight: 600;
+            letter-spacing: 0px;
+       }
+
+       p {
+            font-size: 18px;
+            font-weight: 300;
+       }
+
+       .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #38b8f9;
+       }
+
+       .navbar .logo img {
+            height: 50px;
+            padding-left: 26px;
+       }
+
+       .navbar .nav-links a {
+            color: white;
+            font-size: 18px;
+       }
+
+       .navbar .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            padding-right: 26px;
+            align-items: center;
+       }
+
+       #signup-button {
+            color: black;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+       }
+
+       .hero-section {
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(#38B8F9, #2668EC);
+            height: 100vh;
+       }
+
+       .hero-container {
+            padding-top: 104px;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+       }
+
+       .hero-container p {
+            text-align: center;
+            color: white;
+            letter-spacing: 0;
+            line-height: 30px;
+       }
+
+       .hero-container h1 {
+            text-align: center;
+            color: white;
+       }
+
+       .hero-container-text-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+       }
+       .hero-container-text-container h1 {
+            margin-bottom: 0px;
+       }
+   </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="https://awefactor.us">
+                <img src="/images/logo.png" alt="awefactor logo">
+            </a>
+        </div>
+        <div class="nav-links">
+          <a href="https://awefactor.us/submit.html">Submit a factor</a>
+            <a href="https://awefactor.us/login.html">Log in</a>
+            <a href="https://awefactor.us/signup.html" id="signup-button">Sign up</a>
+        </div>
+    </nav>
+    <main>
+        <div class="hero-section">
+            <div class="hero-container">
+                <div class="hero-container-text-container">
+                    <h1>You've seen it all!</h1>
+                    <p>But don't worry, more awesome stuff is on the way!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
