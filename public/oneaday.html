@@ -67,7 +67,7 @@
             align-items: center;
        }
 
-       #signup-button {
+       .nav-links #signup-button {
             color: black;
             background: white;
             padding: 10px 20px;
@@ -109,6 +109,52 @@
        .hero-container-text-container h1 {
             margin-bottom: 0px;
        }
+       .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 250px;
+            z-index: 999;
+            background-color: rgba(255, 255, 255, .2);
+            backdrop-filter: blur(10px);
+            box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 20px 10px;
+       }
+       .sidebar a {
+        color: white;
+        width: 100%;
+        padding: 10px 10px;
+        font-size: 18px;
+       }
+       .menu-button {
+        display: none;
+       }
+       .sidebar #signup-button {
+        background: none;
+        padding-right: 10px;
+       }
+       li {
+        list-style-type: none;
+       }
+       @media(max-width: 800px) {
+        .menu-button {
+            display: block;
+        }
+        .hideOnMobile {
+            display: none;
+        }
+       }
+       @media(max-width: 400px) {
+        .sidebar {
+            width: 100%;
+        }
+       }
+
    </style>
 </head>
 <body>
@@ -118,10 +164,17 @@
                 <img src="/images/logo.png" alt="awefactor logo">
             </a>
         </div>
-        <div class="nav-links">
-          <a href="https://awefactor.us/submit.html">Submit a factor</a>
+        <div class="sidebar">
+            <li onclick=hideSidebar()><a href="#"><svg fill="white" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#5f6368"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></a></li>
+            <a href="https://awefactor.us/submit.html">Submit a factor</a>
             <a href="https://awefactor.us/login.html">Log in</a>
             <a href="https://awefactor.us/signup.html" id="signup-button">Sign up</a>
+        </div>
+        <div class="nav-links">
+            <a class="hideOnMobile" href="https://awefactor.us/submit.html">Submit a factor</a>
+            <a class="hideOnMobile" href="https://awefactor.us/login.html">Log in</a>
+            <a class="hideOnMobile" href="https://awefactor.us/signup.html" id="signup-button">Sign up</a>
+            <li class="menu-button" onclick=showSidebar()><a href="#"><svg fill="white" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#5f6368"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg></a></li>
         </div>
     </nav>
     <main>
@@ -134,5 +187,15 @@
             </div>
         </div>
     </main>
+    <script>
+        function showSidebar() {
+            const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display = 'flex'
+        }
+        function hideSidebar() {
+            const sidebar = document.querySelector('.sidebar')
+            sidebar.style.display= 'none'
+        }
+    </script>
 </body>
 </html>
