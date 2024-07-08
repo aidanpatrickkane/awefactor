@@ -30,7 +30,10 @@ app.use(session({
         mongoUrl: process.env.MONGODB_URI,
         ttl: 14 * 24 * 60 * 60 // sets time-to-live (ttl) -- 14 days * 24 hours * 60 minutes * 60...take a wild guess
     }),
-    cookie: { secure: true } // best in production so cookie only sent over https connections
+    cookie: { 
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax'
+     } // best in production so cookie only sent over https connections
 }));
 
 app.get('/test', (req, res) => {
