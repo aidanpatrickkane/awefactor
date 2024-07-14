@@ -28,6 +28,7 @@ h1 {
     margin-top: 75px;
     color: black;
     text-align: center;
+    font-family: 'Inter', sans-serif;
 }
 
 h2 {
@@ -35,11 +36,13 @@ h2 {
     font-weight: 500;
     letter-spacing: 0px;
     text-align: center;
+    font-family: 'Inter', sans-serif;
 }
 
 p {
     font-size: 1rem;
     font-weight: 300;
+    font-family: 'Inter', sans-serif;
 }
 
 .content-container-wrapper {
@@ -51,6 +54,7 @@ p {
 
 .content-container {
     text-align: center;
+    width: 80%;
 }
 
 pre {
@@ -59,4 +63,20 @@ pre {
     white-space: pre-wrap;
     display: inline-block;
     padding-right: 30px;
+    font-family: 'Inter', sans-serif;
+}
+
+@media(max-width: 800px) {
+    iframe {
+        width: 300px;
+        height: 157.5px;
+    }
+    h1 {
+        font-size: 2rem;
+        font-family: 'Inter', sans-serif;
+    }
+    h2 {
+        font-size: 1rem;
+        font-family: 'Inter', sans-serif;
+    }
 }
