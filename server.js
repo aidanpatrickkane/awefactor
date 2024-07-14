@@ -22,6 +22,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs'); // setting view engine to EJS
 app.set('views', 'views') // specifies directory where page templates will be stored. 'views' directory necessary
 
+// since im in an ec2 instance
+app.set('trust proxy', 1)
+
 app.use(session({
     secret: process.env.SESSION_SECRET_KEY,
     resave: false,
@@ -31,8 +34,8 @@ app.use(session({
         ttl: 14 * 24 * 60 * 60 // sets time-to-live (ttl) -- 14 days * 24 hours * 60 minutes * 60...take a wild guess
     }),
     cookie: { 
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax'
+        secure: true,
+        sameSite: 'none'
      } // best in production so cookie only sent over https connections
 }));
 
