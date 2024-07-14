@@ -66,10 +66,10 @@ pre {
     font-family: 'Inter', sans-serif;
 }
 
-@media(max-width: 800px) {
+@media(max-width: 1000px) {
     iframe {
-        width: 300px;
-        height: 157.5px;
+        width: 600px;
+        height: 315px;
     }
     h1 {
         font-size: 2rem;
@@ -78,5 +78,11 @@ pre {
     h2 {
         font-size: 1rem;
         font-family: 'Inter', sans-serif;
+    }
+}
+@media(max-width: 650px) {
+    iframe {
+        width: 300px;
+        height: 157.5px;
     }
 }
