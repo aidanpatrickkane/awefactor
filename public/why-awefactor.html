@@ -3,7 +3,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Oh Snap!</title>
+   <title>Home</title>
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <link rel="icon" href="/images/Basic-colored-logo.png" type="image/png">
    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -78,8 +78,8 @@
        .hero-section {
             display: flex;
             justify-content: center;
-            background: linear-gradient(#38B8F9, #2668EC);
-            height: 100vh;
+            background: #2668EC;
+            height: auto;
        }
 
        .hero-container {
@@ -91,7 +91,7 @@
        }
 
        .hero-container p {
-            text-align: center;
+            text-align: left;
             color: white;
             letter-spacing: 0;
             line-height: 30px;
@@ -106,6 +106,7 @@
             display: flex;
             flex-direction: column;
             margin-bottom: 20px;
+            width: 50%;
        }
        .hero-container-text-container h1 {
             margin-bottom: 0px;
@@ -153,17 +154,20 @@
         color: white;
        }
        }
-       @media(max-width: 400px) {
+       @media(max-width: 600px) {
         .sidebar {
             width: 100%;
         }
+        .hero-container-text-container {
+            width: 80%;
+       }
        }
    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">
-            <a href="https://awefactor.us">
+            <a href="/index.html">
                 <img src="/images/logo.png" alt="awefactor logo">
             </a>
         </div>
@@ -185,8 +189,16 @@
         <div class="hero-section">
             <div class="hero-container">
                 <div class="hero-container-text-container">
-                    <h1>You've seen it all!</h1>
-                    <p>But don't worry, more awesome stuff is on the way!</p>
+                    <h1>Why Awefactor</h1>
+                    <p>Everyone is saying the world is going to hell, but I really don’t believe that. I think there’s a ton of amazing things that are going on every day, but what we see on social media is usually just some negative nonsense of people fighting, and it just exacerbates the real problems this world is seeing, not solving anything. If someone realizes this and wants a break from it where do they go? They can look up inspirational videos on YouTube, only to get sucked into watching 5 and then closing the tab with nothing but a sense of wasted time and no memory of the first video — and thus, no inspiration to take with them on their day.
+                        <br><br>
+                        On Instagram, you can’t really search for that — maybe you can use a hashtag, but I don’t think I’ve used a hashtag in my ten years of using the app, and don’t think many others have either. With Instagram also, scrolling long enough to find something amazing usually takes a while. I’m sure many of us after years of being in the cycle of scrolling have realized that Instagram much more results in a waste of time than the amazing things we see (seriously, think back to the last amazing thing you saw on Instagram that you think will impact you in a week. I can’t). Don’t get me started on TikTok.
+                        <br><br>
+                        So think of this as an experiment. I want to know if people seeing something inspirational and amazing, or just something cool (if you haven’t seen the NYC Sax Battle yet, that’s what I have in mind here) every morning will make them happier throughout the day. And then at night, anticipating “What’s gonna be the factor tomorrow?!” And HOPEFULLY, this overall increase in positive excitement of people will make them happier, which will make for less division, and hopefully people will just enjoy their lives more. Hopefully, a liberal and a republican both see the Pitch Perfect Riff-Off on the same day and come together to appreciate it. Because it’s sick.
+                        <br><br>
+                        The goal of the content I upload, either from what I’ve personally found or from submitted factors, is something that is universally loved. I know that aside from maybe Morgan Freeman or the year 2016, there isn’t much that is “universally loved” across the board, but if I strive for 100% on Rotten Tomatoes-type-of-items, I’ll be doing the best I can.
+                        <br><br>
+                        Even if it’s not something I think will be a 100% on Rotten Tomatoes-type-of-item, if it sparks a really genuinely positive feeling in myself or the person submitting, I’ll still put it up since I’ve seen time and time again: the things you love but aren’t sure if other people will like actually tend to be the most appreciated once others see it. Because people love passion.</p>
                 </div>
             </div>
         </div>
@@ -200,6 +212,6 @@
          const sidebar = document.querySelector('.sidebar')
          sidebar.style.display= 'none'
      }
- </script>
+     </script>
 </body>
 </html>
